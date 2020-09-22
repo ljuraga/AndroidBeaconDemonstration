@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.room.RoomSetupFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleRoomSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/room_size" />
+
+            <TextView
+                android:id="@+id/titleRoomSizeX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size_x" />
+
+            <EditText
+                android:id="@+id/enterRoomSizeX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/roomSizeXDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+            <TextView
+                android:id="@+id/titleRoomSizeY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size_y" />
+
+            <EditText
+                android:id="@+id/enterRoomSizeY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/roomSizeYDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/room_size_XY_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/room_size" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/titleBeaconNumberSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/beaconNumberSelect" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupBeacons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton2Beacons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beaconNumber2" />
+
+            <RadioButton
+                android:id="@+id/radioButton3Beacons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beaconNumber3" />
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/beacon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleBeacon1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beacon1" />
+
+            <TextView
+                android:id="@+id/titleBeacon1X"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size_x" />
+
+            <EditText
+                android:id="@+id/enterBeacon1X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon1XDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+            <TextView
+                android:id="@+id/titleBeacon1Y"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size_y" />
+
+            <EditText
+                android:id="@+id/enterBeacon1Y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon1YDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/beacon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleBeacon2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beacon2" />
+
+            <TextView
+                android:id="@+id/titleBeacon2X"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size_x" />
+
+            <EditText
+                android:id="@+id/enterBeacon2X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon2XDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+            <TextView
+                android:id="@+id/titleBeacon2Y"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size_y" />
+
+            <EditText
+                android:id="@+id/enterBeacon2Y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon2YDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/beacon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/titleBeacon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beacon3" />
+
+            <TextView
+                android:id="@+id/titleBeacon3X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size_x" />
+
+            <EditText
+                android:id="@+id/enterBeacon3X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon3XDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+            <TextView
+                android:id="@+id/titleBeacon3Y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size_y" />
+
+            <EditText
+                android:id="@+id/enterBeacon3Y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/beacon3YDistanceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="m" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/room_beacon_XY_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/room_beacon" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/selectBeacon1title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon1" />
+
+            <TextView
+                android:id="@+id/selectBeacon1beaconName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon_not_selected" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/selectBeacon1button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/select_beacon_button" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/selectBeacon2title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon2" />
+
+            <TextView
+                android:id="@+id/selectBeacon2beaconName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon_not_selected" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/selectBeacon2button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/select_beacon_button" />
+
+        <LinearLayout
+            android:id="@+id/selectBeacon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/selectBeacon3title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon3" />
+
+            <TextView
+                android:id="@+id/selectBeacon3beaconName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_beacon_not_selected" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/selectBeacon3button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/select_beacon_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="invisible" />
+
+        <Button
+            android:id="@+id/addTestValues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Test Values" />
+
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear" />
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/start" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="invisible" />
+
+    </LinearLayout>
+
+</ScrollView>

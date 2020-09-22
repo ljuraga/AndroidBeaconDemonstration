@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_theme" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupThemes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonSystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_system" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_dark" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_theme_light" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/distanceUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_distanceUnit" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupDistanceUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonMeters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_meters" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonYards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_yards" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/scanIntervalTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/settings_scanIntervalTime" />
+
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/scanIntervalTimeSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:isb_indicator_color="@color/colorAccent"
+            app:isb_max="10"
+            app:isb_min="1"
+            app:isb_show_tick_texts="true"
+            app:isb_tick_texts_color="@color/gray"
+            app:isb_ticks_count="2"
+            app:isb_thumb_color="@color/colorAccent"
+            app:isb_track_progress_color="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/timeBetweenScanIntervals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/settings_timeBetweenScanIntervals" />
+
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/timeBetweenScanIntervalsSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:isb_indicator_color="@color/colorAccent"
+            app:isb_max="10"
+            app:isb_min="1"
+            app:isb_show_tick_texts="true"
+            app:isb_tick_texts_color="@color/gray"
+            app:isb_ticks_count="2"
+            app:isb_thumb_color="@color/colorAccent"
+            app:isb_track_progress_color="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rssiFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_rssiFilter" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupRssiFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioButtonNoRssiFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_NoRssiFilter" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonRunningAverageRssiFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_RunningAverageRssiFilter" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonArmaRssiFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_ArmaRssiFilter" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonKalmanRssiFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_KalmanRssiFilter" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutSampleExpiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleSampleExpiration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_SampleExpiration" />
+
+            <EditText
+                android:id="@+id/enterSampleExpirationMilliseconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/titleSampleExpirationMilliseconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ms" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDEFAULT_ARMA_SPEED"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleDEFAULT_ARMA_SPEED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_DEFAULT_ARMA_SPEED" />
+
+            <EditText
+                android:id="@+id/enterDEFAULT_ARMA_SPEED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutKalmanRssiFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleKALMAN_R"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_KALMAN_R" />
+
+            <EditText
+                android:id="@+id/enterKALMAN_R"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/titleKALMAN_Q"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_KALMAN_Q" />
+
+            <EditText
+                android:id="@+id/enterKALMAN_Q"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:digits="0123456789."
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
