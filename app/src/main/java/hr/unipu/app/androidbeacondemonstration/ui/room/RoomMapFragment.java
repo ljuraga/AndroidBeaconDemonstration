@@ -15,6 +15,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
+import com.lemmingapex.trilateration.TrilaterationFunction;
+
+import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
+import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 
 import hr.unipu.app.androidbeacondemonstration.R;
 import hr.unipu.app.androidbeacondemonstration.beaconlist.BeaconList;
@@ -58,82 +63,37 @@ public class RoomMapFragment extends Fragment {
     }
 
     /**
-     * Metoda koja određuje lokaciju prema centru gravitacije za 2 ili 3 Beacon-a.
-     * Preuzeto sa: https://stackoverflow.com/questions/20332856/triangulate-example-for-ibeacons/23382723.
+     * Metoda koja određuje lokaciju za 2 ili 3 Beacon-a.
      *
-     * @author Vishnu Prabhu i Leopold Juraga
+     * @author Leopold Juraga
      */
-    public static Location getLocationWithCenterOfGravity(String beaconNumber, Location beaconA, Location beaconB, Location beaconC, double distanceA, double distanceB, double distanceC) {
+    public static Location getLocation(String beaconNumber, Location beaconA, Location beaconB, Location beaconC, double distanceA, double distanceB, double distanceC) {
 
-        //Every meter there are approx 4.5 points
-        double METERS_IN_COORDINATE_UNITS_RATIO = 4.5;
-
-        //http://stackoverflow.com/a/524770/663941
-        //Find Center of Gravity
-        double cogX = 0;
-        double cogY = 0;
+        double[][] positions = new double[0][];
+        double[] distances = new double[0];
+        boolean test = true;
         if(beaconNumber.equals("2")){
-            cogX = (beaconA.getLatitude() + beaconB.getLatitude()) / 2;
-            cogY = (beaconA.getLongitude() + beaconB.getLongitude()) / 2;
+            positions = new double[][] { { beaconA.getLongitude(), beaconA.getLatitude() }, { beaconB.getLongitude(), beaconB.getLatitude() } };
+            distances = new double[] { distanceA, distanceB };
+            Log.e(TAG, "positions are: " + beaconA.getLongitude() + "   " + beaconA.getLatitude() + "   " + beaconB.getLongitude() + "   " + beaconB.getLatitude());
+            Log.e(TAG, "distances are: " + distanceA + "   " + distanceB);
         }else if (beaconNumber.equals("3")){
-            cogX = (beaconA.getLatitude() + beaconB.getLatitude() + beaconC.getLatitude()) / 3;
-            cogY = (beaconA.getLongitude() + beaconB.getLongitude() + beaconC.getLongitude()) / 3;
-        }
-        Location cog = new Location("Cog");
-        cog.setLatitude(cogX);
-        cog.setLongitude(cogY);
-
-
-        //Nearest Beacon
-        Location nearestBeacon = null;
-        double shortestDistanceInMeters = 0;
-        if(beaconNumber.equals("2")){
-            if (distanceA < distanceB) {
-                nearestBeacon = beaconA;
-                shortestDistanceInMeters = distanceA;
-            } else {
-                nearestBeacon = beaconB;
-                shortestDistanceInMeters = distanceB;
-            }
-        }else if (beaconNumber.equals("3")){
-            if (distanceA < distanceB && distanceA < distanceC) {
-                nearestBeacon = beaconA;
-                shortestDistanceInMeters = distanceA;
-            } else if (distanceB < distanceC) {
-                nearestBeacon = beaconB;
-                shortestDistanceInMeters = distanceB;
-            } else {
-                nearestBeacon = beaconC;
-                shortestDistanceInMeters = distanceC;
-            }
+            positions = new double[][] { { beaconA.getLongitude(), beaconA.getLatitude() }, { beaconB.getLongitude(), beaconB.getLatitude() }, { beaconC.getLongitude(), beaconC.getLatitude() } };
+            distances = new double[] { distanceA, distanceB, distanceC };
+            Log.e(TAG, "positions are: " + beaconA.getLongitude() + "   " + beaconA.getLatitude() + "   " + beaconB.getLongitude() + "   " + beaconB.getLatitude() + "   " + beaconC.getLongitude() + "   " + beaconC.getLatitude());
+            Log.e(TAG, "distances are: " + distanceA + "   " + distanceB + "   " + distanceC);
         }
 
-        //http://www.mathplanet.com/education/algebra-2/conic-sections/distance-between-two-points-and-the-midpoint
-        //Distance between nearest beacon and COG
-        double distanceToCog = Math.sqrt(Math.pow(cog.getLatitude() - nearestBeacon.getLatitude(),2)
-                + Math.pow(cog.getLongitude() - nearestBeacon.getLongitude(),2));
+        NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
+        LeastSquaresOptimizer.Optimum optimum = solver.solve();
 
-        //Convert shortest distance in meters into coordinates units.
-        double shortestDistanceInCoordinationUnits = shortestDistanceInMeters * METERS_IN_COORDINATE_UNITS_RATIO;
-
-        //http://math.stackexchange.com/questions/46527/coordinates-of-point-on-a-line-defined-by-two-other-points-with-a-known-distance?rq=1
-        //On the line between Nearest Beacon and COG find shortestDistance point apart from Nearest Beacon
-
-        double t = shortestDistanceInCoordinationUnits/distanceToCog;
-
-        Location pointsDiff = new Location("PointsDiff");
-        pointsDiff.setLatitude(cog.getLatitude() - nearestBeacon.getLatitude());
-        pointsDiff.setLongitude(cog.getLongitude() - nearestBeacon.getLongitude());
-
-        Location tTimesDiff = new Location("tTimesDiff");
-        tTimesDiff.setLatitude(pointsDiff.getLatitude() * t);
-        tTimesDiff.setLongitude(pointsDiff.getLongitude() * t);
-
-        //Add t times diff with nearestBeacon to find coordinates at a distance from nearest beacon in line to COG.
+        double[] centroid = optimum.getPoint().toArray();
+        Log.e(TAG, "centroid is " + centroid[0] + "   " + centroid[1]);
 
         Location userLocation = new Location("UserLocation");
-        userLocation.setLatitude(nearestBeacon.getLatitude() + tTimesDiff.getLatitude());
-        userLocation.setLongitude(nearestBeacon.getLongitude() + tTimesDiff.getLongitude());
+        userLocation.setLongitude(centroid[0]);
+        userLocation.setLatitude(centroid[1]);
+        Log.e(TAG, "userLocation is " + userLocation.getLongitude() + "   " + userLocation.getLatitude());
 
         return userLocation;
     }
@@ -186,7 +146,9 @@ public class RoomMapFragment extends Fragment {
                 Location loc = null;
                 Log.e(TAG, "is beaconA visible " + BeaconList.isBeaconVisible(RoomData.getBeacon1ID()));
                 Log.e(TAG, "is beaconB visible " + BeaconList.isBeaconVisible(RoomData.getBeacon2ID()));
-                Log.e(TAG, "is beaconC visible " + BeaconList.isBeaconVisible(RoomData.getBeacon3ID()));
+                if (RoomData.getBeaconNumber().equals("3")){
+                    Log.e(TAG, "is beaconC visible " + BeaconList.isBeaconVisible(RoomData.getBeacon3ID()));
+                }
 
                 try {
                     distanceUnit = RoomData.getDistanceUnit(context);
@@ -203,7 +165,7 @@ public class RoomMapFragment extends Fragment {
                         RoomData.setBeacon2distance(BeaconList.getDistanceOfBeaconByID(RoomData.getBeacon2ID(), distanceUnit));
                         Log.e(TAG, "beaconB distance is " + BeaconList.getDistanceOfBeaconByID(RoomData.getBeacon2ID(), distanceUnit));
                     }
-                    loc = getLocationWithCenterOfGravity(RoomData.getBeaconNumber(), beaconA, beaconB, beaconC, RoomData.getBeacon1distance(), RoomData.getBeacon2distance(), RoomData.getBeacon3distance());
+                    loc = getLocation(RoomData.getBeaconNumber(), beaconA, beaconB, beaconC, RoomData.getBeacon1distance(), RoomData.getBeacon2distance(), RoomData.getBeacon3distance());
                     Log.e(TAG, "beaconA is " + beaconA + " and beaconB is " + beaconB + " and beaconC is " + beaconC);
                     Log.e(TAG, "loc is " + loc);
                     drawPin(loc);
@@ -221,7 +183,7 @@ public class RoomMapFragment extends Fragment {
                         RoomData.setBeacon3distance(BeaconList.getDistanceOfBeaconByID(RoomData.getBeacon3ID(), distanceUnit));
                         Log.e(TAG, "beaconC distance is " + BeaconList.getDistanceOfBeaconByID(RoomData.getBeacon3ID(), distanceUnit));
                     }
-                    loc = getLocationWithCenterOfGravity(RoomData.getBeaconNumber(), beaconA, beaconB, beaconC, RoomData.getBeacon1distance(), RoomData.getBeacon2distance(), RoomData.getBeacon3distance());
+                    loc = getLocation(RoomData.getBeaconNumber(), beaconA, beaconB, beaconC, RoomData.getBeacon1distance(), RoomData.getBeacon2distance(), RoomData.getBeacon3distance());
                     Log.e(TAG, "beaconA is " + beaconA + " and beaconB is " + beaconB + " and beaconC is " + beaconC);
                     Log.e(TAG, "loc is " + loc);
                     drawPin(loc);

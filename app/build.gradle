@@ -48,6 +48,7 @@ dependencies {
 //    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     // Legacy
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.lemmingapex.trilateration:trilateration:1.0.2'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     // Dexter runtime permissions
     implementation 'com.karumi:dexter:6.2.1'
