@@ -57,7 +57,7 @@
     <string name="noupdate_message">Imate najnoviju dostupnu verziju aplikacije!</string>
     <string name="error">Dogodila se greška!</string>
     <string name="settings_DEFAULT_ARMA_SPEED">"Standardna Arma Brzina: "</string>
-    <string name="settings_SampleExpiration">"Istjecanje uzorka: "</string>
+    <string name="settings_SampleExpiration">"Trajanje uzorka: "</string>
     <string name="search_toast_beacon_selected">" je odabran."</string>
     <string name="settings_android5and6warningDialog_title">Nedostupno</string>
     <string name="settings_RSSIwariningDialog_title">Upozorenje</string>
