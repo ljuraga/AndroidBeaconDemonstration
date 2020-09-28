@@ -68,31 +68,31 @@ public class RoomMapFragment extends Fragment {
      * @author Leopold Juraga
      */
     public static Location getLocation(String beaconNumber, Location beaconA, Location beaconB, Location beaconC, double distanceA, double distanceB, double distanceC) {
-
         double[][] positions = new double[0][];
         double[] distances = new double[0];
-        boolean test = true;
+        Location userLocation = new Location("UserLocation");
         if(beaconNumber.equals("2")){
-            positions = new double[][] { { beaconA.getLongitude(), beaconA.getLatitude() }, { beaconB.getLongitude(), beaconB.getLatitude() } };
-            distances = new double[] { distanceA, distanceB };
-            Log.e(TAG, "positions are: " + beaconA.getLongitude() + "   " + beaconA.getLatitude() + "   " + beaconB.getLongitude() + "   " + beaconB.getLatitude());
-            Log.e(TAG, "distances are: " + distanceA + "   " + distanceB);
+            double X = ((Math.pow(distanceA, 2) - Math.pow(distanceB, 2)) + Math.pow((beaconB.getLongitude()-beaconA.getLongitude()), 2))/(2*(beaconB.getLongitude()-beaconA.getLongitude()));
+            double Y = Math.sqrt(Math.abs(Math.pow(distanceA, 2) - Math.pow(X, 2)));
+            userLocation.setLongitude(X);
+            userLocation.setLatitude(Y);
+            Log.e(TAG, "X is " + X + " and Y is " + Y);
         }else if (beaconNumber.equals("3")){
             positions = new double[][] { { beaconA.getLongitude(), beaconA.getLatitude() }, { beaconB.getLongitude(), beaconB.getLatitude() }, { beaconC.getLongitude(), beaconC.getLatitude() } };
             distances = new double[] { distanceA, distanceB, distanceC };
             Log.e(TAG, "positions are: " + beaconA.getLongitude() + "   " + beaconA.getLatitude() + "   " + beaconB.getLongitude() + "   " + beaconB.getLatitude() + "   " + beaconC.getLongitude() + "   " + beaconC.getLatitude());
             Log.e(TAG, "distances are: " + distanceA + "   " + distanceB + "   " + distanceC);
+
+            NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
+            LeastSquaresOptimizer.Optimum optimum = solver.solve();
+
+            double[] centroid = optimum.getPoint().toArray();
+            Log.e(TAG, "centroid is " + centroid[0] + "   " + centroid[1]);
+
+            userLocation.setLongitude(centroid[0]);
+            userLocation.setLatitude(centroid[1]);
         }
 
-        NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
-        LeastSquaresOptimizer.Optimum optimum = solver.solve();
-
-        double[] centroid = optimum.getPoint().toArray();
-        Log.e(TAG, "centroid is " + centroid[0] + "   " + centroid[1]);
-
-        Location userLocation = new Location("UserLocation");
-        userLocation.setLongitude(centroid[0]);
-        userLocation.setLatitude(centroid[1]);
         Log.e(TAG, "userLocation is " + userLocation.getLongitude() + "   " + userLocation.getLatitude());
 
         return userLocation;
